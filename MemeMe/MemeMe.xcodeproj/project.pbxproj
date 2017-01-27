@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D2085271E3BADFE000A3B70 /* MemeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2085261E3BADFE000A3B70 /* MemeTableViewCell.swift */; };
 		3D78F5211E39E98E00D02A63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78F5201E39E98E00D02A63 /* AppDelegate.swift */; };
-		3D78F5231E39E98E00D02A63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78F5221E39E98E00D02A63 /* ViewController.swift */; };
+		3D78F5231E39E98E00D02A63 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78F5221E39E98E00D02A63 /* EditorViewController.swift */; };
 		3D78F5261E39E98E00D02A63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D78F5241E39E98E00D02A63 /* Main.storyboard */; };
 		3D78F5281E39E98E00D02A63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D78F5271E39E98E00D02A63 /* Assets.xcassets */; };
 		3D78F52B1E39E98E00D02A63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D78F5291E39E98E00D02A63 /* LaunchScreen.storyboard */; };
 		3D78F5361E39E98F00D02A63 /* MemeMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78F5351E39E98F00D02A63 /* MemeMeTests.swift */; };
 		3D78F5411E3A3AB500D02A63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78F5401E3A3AB500D02A63 /* Constants.swift */; };
+		3DA45A401E3B6FB600D86C7B /* MemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA45A3F1E3B6FB600D86C7B /* MemeCollectionViewController.swift */; };
+		3DA45A421E3B6FCB00D86C7B /* MemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA45A411E3B6FCB00D86C7B /* MemeTableViewController.swift */; };
 		3DB4CD261E3B15B800711734 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4CD251E3B15B800711734 /* Meme.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,9 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D2085261E3BADFE000A3B70 /* MemeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewCell.swift; sourceTree = "<group>"; };
 		3D78F51D1E39E98E00D02A63 /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D78F5201E39E98E00D02A63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3D78F5221E39E98E00D02A63 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3D78F5221E39E98E00D02A63 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 		3D78F5251E39E98E00D02A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D78F5271E39E98E00D02A63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D78F52A1E39E98E00D02A63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -39,6 +43,8 @@
 		3D78F5351E39E98F00D02A63 /* MemeMeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeMeTests.swift; sourceTree = "<group>"; };
 		3D78F5371E39E98F00D02A63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D78F5401E3A3AB500D02A63 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3DA45A3F1E3B6FB600D86C7B /* MemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeCollectionViewController.swift; sourceTree = "<group>"; };
+		3DA45A411E3B6FCB00D86C7B /* MemeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewController.swift; sourceTree = "<group>"; };
 		3DB4CD251E3B15B800711734 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,12 +89,15 @@
 			children = (
 				3DB4CD241E3B15A300711734 /* Model */,
 				3D78F5201E39E98E00D02A63 /* AppDelegate.swift */,
-				3D78F5221E39E98E00D02A63 /* ViewController.swift */,
+				3D78F5221E39E98E00D02A63 /* EditorViewController.swift */,
 				3D78F5241E39E98E00D02A63 /* Main.storyboard */,
 				3D78F5271E39E98E00D02A63 /* Assets.xcassets */,
 				3D78F5291E39E98E00D02A63 /* LaunchScreen.storyboard */,
 				3D78F52C1E39E98E00D02A63 /* Info.plist */,
 				3D78F5401E3A3AB500D02A63 /* Constants.swift */,
+				3DA45A3F1E3B6FB600D86C7B /* MemeCollectionViewController.swift */,
+				3DA45A411E3B6FCB00D86C7B /* MemeTableViewController.swift */,
+				3D2085261E3BADFE000A3B70 /* MemeTableViewCell.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -215,8 +224,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D78F5231E39E98E00D02A63 /* ViewController.swift in Sources */,
+				3D78F5231E39E98E00D02A63 /* EditorViewController.swift in Sources */,
 				3DB4CD261E3B15B800711734 /* Meme.swift in Sources */,
+				3DA45A401E3B6FB600D86C7B /* MemeCollectionViewController.swift in Sources */,
+				3DA45A421E3B6FCB00D86C7B /* MemeTableViewController.swift in Sources */,
+				3D2085271E3BADFE000A3B70 /* MemeTableViewCell.swift in Sources */,
 				3D78F5211E39E98E00D02A63 /* AppDelegate.swift in Sources */,
 				3D78F5411E3A3AB500D02A63 /* Constants.swift in Sources */,
 			);

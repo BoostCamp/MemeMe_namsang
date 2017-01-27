@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  EditorViewController.swift
 //  MemeMe
 //
 //  Created by 남상욱 on 2017. 1. 26..
@@ -10,9 +10,16 @@ import UIKit
 import Photos
 import AVFoundation
 
-//UIImagePickerController를 사용하기 위해서는 UIImagePickerControllerDelegate, UINavigationControllerDelegate를 채택해야 함.
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+//protocol DataSentDelegate {
+//    func sendUpdateIndexpath(index: Int)
+//}
+
+
+
+//UIImagePickerController를 사용하기 위해서는 UIImagePickerControllerDelegate, UINavigationControllerDelegate를 채택해야 함.
+class EditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     
@@ -33,6 +40,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         case top
         case bottom
     }
+    
+    
+//    var delegate: DataSentDelegate? = nil
+
     
     let memeTextAttributes:[String:Any] = [
         NSStrokeColorAttributeName: UIColor.black,
@@ -101,10 +112,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activityViewController.completionWithItemsHandler = {activityType, completed, returnedItems, activityError in
             if completed {
                 self.save(memedImage)
+//                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//                let index: Int = appDelegate.memes.count
+//                self.delegate?.sendUpdateIndexpath(index: index)
             }
         }
         // present the ActivityViewController
         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: "Cancel" action method
+    
+    
+    @IBAction func cancelEditingScreen(_ sender: Any) {
+         self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -253,6 +275,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    // Create a UIImage that combines the Image View and the Labels
     func generatingMemedImage() -> UIImage {
       
          // TODO: Hide toolbar and navbar
@@ -273,17 +296,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func save(_ memedImage: UIImage) {
-        // Create the meme
+        // Update the meme
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+    
+        // Add it to the memes array on the Application Delegate     
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.append(meme)
+        
+//        if let object: UIApplicationDelegate = UIApplication.shared.delegate{
+//            if let appDelegate: AppDelegate = object{
+//                appDelegate.memes.append(meme)
+//            }
+//        }
+        
+        
+        /*
+         let object = UIApplication.shared.delegate
+         let appDelegate = object as! AppDelegate
+         appDelegate.memes.append(meme)
+         */
+        dismiss(animated: true, completion: nil)
+        
     }
     
     // Disable/Enable the Share button
     func enableShareActionButtonViaImagePickedCheck(_ imagePickedResult : Bool){
         shareActionBarButton.isEnabled = imagePickedResult
+        print("enableShareActionButtonViaImagePickedCheck: ", imagePickedResult)
     }
 }
 
-extension ViewController : UITextFieldDelegate {
+extension EditorViewController : UITextFieldDelegate {
     
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

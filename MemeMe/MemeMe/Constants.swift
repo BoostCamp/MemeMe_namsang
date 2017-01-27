@@ -14,6 +14,11 @@ struct DefaultTextOfTextField {
     static let bottom: String = "BOTTOM"
 }
 
+struct SentMemeCellConstants {
+    static let tableView: String = "SentMemeTableViewCell"
+    static let collectionView: String = "SentMemeCollectionViewCell"
+}
+
 struct CameraAccessAlert {
     static let title: String = "카메라 접근 승인 필요"
     static let message: String = "'설정(앱) - MemeMe - 카메라' 접근을 허용 해주세요."
