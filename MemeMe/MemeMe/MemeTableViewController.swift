@@ -34,7 +34,7 @@ class MemeTableViewController: UITableViewController {
         print("viewWillAppear in MemeTableViewController")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = appDelegate.memes
-        tableView.reloadData()
+        tableView?.reloadData()
     }
     
 
@@ -76,7 +76,6 @@ class MemeTableViewController: UITableViewController {
         
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        print("memes.count in numberOfRowsInSection → ", memes.count)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = appDelegate.memes
         return memes.count
@@ -86,7 +85,7 @@ class MemeTableViewController: UITableViewController {
         // Configure the cell...
 
         let cell = tableView.dequeueReusableCell(withIdentifier: SentMemeCellConstants.tableView, for: indexPath) as! MemeTableViewCell
-        let meme = memes[(indexPath.row)]
+        let meme = memes[(indexPath as NSIndexPath).row]
         
         cell.memedImageView?.image = meme.memedImage
         cell.topLabel?.text = meme.topText

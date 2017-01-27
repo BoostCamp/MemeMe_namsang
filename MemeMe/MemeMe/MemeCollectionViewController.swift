@@ -12,8 +12,8 @@ private let reuseIdentifier = "SentMemeCollectionViewCell"
 
 class MemeCollectionViewController: UICollectionViewController {
 
-    
-    
+    var memes: [Meme]!
+      
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,10 +26,36 @@ class MemeCollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: View Controller Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear in MemeCollectionViewController")
+      
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        memes = appDelegate.memes
+        collectionView?.reloadData()
     }
+    
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear in MemeCollectionViewController")
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear in MemeCollectionViewController")
+        super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("viewDidDisappear in MemeCollectionViewController")
+        super.viewDidDisappear(animated)
+    }
+    
+    
 
     /*
     // MARK: - Navigation
@@ -43,24 +69,38 @@ class MemeCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
+/*
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }
-
+*/
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return memes.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
         // Configure the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SentMemeCellConstants.collectionView, for: indexPath) as! MemeCollectionViewCell
+        print("aaa: ", cell)
+        let meme = memes[(indexPath as NSIndexPath).row]
+        cell.memedImageView.image = meme.memedImage
     
         return cell
     }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Grab the MemeDetailViewController from Storyboard
+        let memeDetailViewController = self.storyboard!.instantiateViewController(withIdentifier: WithIdentifierConstants.memeDetailViewController) as! MemeDetailViewController
+        
+        //Populate view controller with data from the selected item
+        memeDetailViewController.memedImage = memes[(indexPath as NSIndexPath).row].memedImage as UIImage
+        
+        // Present the view controller using navigation
+        navigationController?.pushViewController(memeDetailViewController, animated: true)
+    }
+    
 
     // MARK: UICollectionViewDelegate
 

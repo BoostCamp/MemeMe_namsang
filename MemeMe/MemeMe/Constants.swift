@@ -15,8 +15,12 @@ struct DefaultTextOfTextField {
 }
 
 struct SentMemeCellConstants {
-    static let tableView: String = "SentMemeTableViewCell"
-    static let collectionView: String = "SentMemeCollectionViewCell"
+    static let tableView: String = "CellOfTableView"
+    static let collectionView: String = "CellOfCollectionView"
+}
+
+struct WithIdentifierConstants {
+    static let memeDetailViewController: String = "MemeDetailViewController"
 }
 
 struct CameraAccessAlert {
