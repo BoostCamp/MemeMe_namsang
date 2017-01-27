@@ -16,12 +16,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     
+    @IBOutlet weak var shareActionBarButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var albumButton: UIBarButtonItem!
     @IBOutlet weak var imagePickerView: UIImageView!
-    
+    @IBOutlet weak var imagePickerToolbar: UIToolbar!
+
     enum PickType: String {
         case camera = "camera"
         case album = "album"
@@ -63,7 +65,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         //Disabling the Camera Button
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        
+        //Init the Share Action Button (Disable/Enable)
+        enableShareActionButtonViaImagePickedCheck(false)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -79,6 +82,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+    }
+    
+    
+    // MARK: "share" action method.
+    
+
+    @IBAction func shareMemedImage(_ sender: Any) {
+    
+        // generate a memed image
+        let memedImage = generatingMemedImage()
+        let memeItemsToShare = [memedImage]
+        
+        // define an instance of the ActivityViewController
+        // pass the ActivityViewController a memedImage as and activity item
+        let activityViewController = UIActivityViewController(activityItems: memeItemsToShare, applicationActivities: nil)
+        
+        activityViewController.completionWithItemsHandler = {activityType, completed, returnedItems, activityError in
+            if completed {
+                self.save(memedImage)
+            }
+        }
+        // present the ActivityViewController
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     
@@ -156,13 +182,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var imagePickedResult: Bool = false
+        
         if let pickedImageFromImagePickerController = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = pickedImageFromImagePickerController
+            imagePickedResult = true
         }else{
             print("Optional binding Error")
+            imagePickedResult = false
         }
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: ( () -> Void)? {
+            _ in self.enableShareActionButtonViaImagePickedCheck(imagePickedResult)
+            })
     }
+    
+    // MARK: keyboard control function
+
     
     func keyboardWillShow(_ notification:Notification){
         // 아래 TextField에서 입력 시에, 키보드 높이만큼 view 의 offset을 move
@@ -187,7 +222,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func subscribeToKeyboardNotifications() {
-        // 옵저버 등록
+        // 옵저버 등록 , The notification object is nil from UIKeyboardWillShow, UIKeyboardWillHide of apple developer
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
     }
@@ -216,6 +251,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             alertController.addAction(defaultAction)
             present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    func generatingMemedImage() -> UIImage {
+      
+         // TODO: Hide toolbar and navbar
+        imagePickerToolbar.isHidden = true
+        
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        //textField와 결합된 imageView의 변경사항을 스냅샵하려면 true (렌더링)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+    
+        imagePickerToolbar.isHidden = false
+        // TODO: Show toolbar and navbar
+        
+        
+        return memedImage
+    }
+    
+    func save(_ memedImage: UIImage) {
+        // Create the meme
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+    }
+    
+    // Disable/Enable the Share button
+    func enableShareActionButtonViaImagePickedCheck(_ imagePickedResult : Bool){
+        shareActionBarButton.isEnabled = imagePickedResult
     }
 }
 

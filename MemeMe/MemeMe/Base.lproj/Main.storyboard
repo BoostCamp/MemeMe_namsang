@@ -45,7 +45,6 @@
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Edj-K5-Tjw">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3zz-Fs-3ES" userLabel="Top Text Field">
                                 <rect key="frame" x="16" y="114" width="343" height="14"/>
@@ -72,7 +71,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Xyd-UX-LoH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="3MN-gG-tR6"/>
                             <constraint firstItem="Xyd-UX-LoH" firstAttribute="top" secondItem="Edj-K5-Tjw" secondAttribute="bottom" id="K4c-ta-d0R"/>
@@ -90,14 +89,20 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hfS-c7-nmO">
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="kb1-do-2nQ"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="kb1-do-2nQ" userLabel="Share Action">
+                            <connections>
+                                <action selector="shareMemedImage:" destination="BYZ-38-t0r" id="1dT-ZF-poI"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="qFG-m4-JSV"/>
                     </navigationItem>
                     <connections>
                         <outlet property="albumButton" destination="a5c-re-3hM" id="Qfq-al-Zrp"/>
                         <outlet property="bottomTextField" destination="7U1-th-IOE" id="vTx-mR-L3y"/>
                         <outlet property="cameraButton" destination="WAb-iI-RTe" id="hGU-xy-w7g"/>
+                        <outlet property="imagePickerToolbar" destination="Xyd-UX-LoH" id="0T5-ZP-odf"/>
                         <outlet property="imagePickerView" destination="Edj-K5-Tjw" id="18u-X0-B7x"/>
+                        <outlet property="shareActionBarButton" destination="kb1-do-2nQ" id="Z9z-sT-EAV"/>
                         <outlet property="topTextField" destination="3zz-Fs-3ES" id="Jsv-9s-hoR"/>
                     </connections>
                 </viewController>
