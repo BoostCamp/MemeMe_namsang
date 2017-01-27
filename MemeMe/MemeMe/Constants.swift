@@ -9,10 +9,9 @@
 import UIKit
 
 
-struct UserDefaultsKey {
-    static let userName: String = "UserName"
-    
-    
+struct DefaultTextOfTextField {
+    static let top: String = "TOP"
+    static let bottom: String = "BOTTOM"
 }
 
 struct CameraAccessAlert {

@@ -27,38 +27,54 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         case album = "album"
     }
     
+    enum TextFieldType: Int {
+        case top
+        case bottom
+    }
+    
     let memeTextAttributes:[String:Any] = [
         NSStrokeColorAttributeName: UIColor.black,
         NSForegroundColorAttributeName: UIColor.white,
         NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName: -3.0
-        ]
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         
+        // Attribute 설정 및 center-aligned 적용
         topTextField.defaultTextAttributes = memeTextAttributes
         topTextField.textAlignment = .center
         bottomTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.textAlignment = .center
-        
+        topTextField.delegate = self
+        bottomTextField.delegate = self
     }
+    
+    
+    
+    // MARK: View Controller Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    
+        // UIKeyboardWillShow, UIKeyboardWillHide이벤트 통지 가입 (NSNotification.Name)
+        subscribeToKeyboardNotifications()
+        
+        //Disabling the Camera Button
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
-        albumButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.photoLibrary)
     }
-    
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        // UIKeyboardWillShow, UIKeyboardWillHide이벤트 통지 해제 (NSNotification.Name)
+        unsubscribeFromKeyboardNotifications()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -66,7 +82,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
+    
+    // MARK: PickerImage functions
+    
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
+        
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self // Set delegate
         imagePickerController.sourceType = .camera
@@ -90,7 +110,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 } else {
                     // User Rejected
                     print("User Rejected")
-                    //                    self.dismiss(animated: true, completion: nil)
+                    // dismiss하면 crash...
+                    // self.dismiss(animated: true, completion: nil)
                 }
             }
         }
@@ -128,64 +149,58 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    
     //UIImagePickerView에서 Cancel 버튼을 눌렀을 때 호출.
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
         print("imagePickerControllerDidCancel called")
     }
-    
-    
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImageFromImagePickerController = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            UIImageView의 비율에 맞게 pickedImage의 크기를 Scale
-//            imagePickerView.contentMode = UIViewContentMode.scaleAspectFit
-            
             imagePickerView.image = pickedImageFromImagePickerController
         }else{
             print("Optional binding Error")
         }
-        
-        
         self.dismiss(animated: true, completion: nil)
     }
     
-    // MARK: general function
-    
-    func checkPhotoLibraryPermission() -> Bool {
-        
-        var checkedFlag: Bool = false
-        
-        
-        let status = PHPhotoLibrary.authorizationStatus()
-        switch status {
-        case .authorized:
-            print("authorized check part.")
-            checkedFlag = true
-        //handle authorized status
-        case .denied, .restricted :
-            checkedFlag = false
-            print(".denied, .restricted check part.")
-        //handle denied status
-        case .notDetermined:
-            // ask for permissions
-            PHPhotoLibrary.requestAuthorization() { status in
-                switch status {
-                case .authorized:
-                    print(".authorized requestAuthorization part.")
-                    checkedFlag = true
-                case .denied, .restricted:
-                    print(".denied, .restricted requestAuthorization part.")
-                    checkedFlag = false
-                case .notDetermined:
-                    print(".notDetermined, .restricted requestAuthorization part.")
-                    checkedFlag = false
-                }
-            }
+    func keyboardWillShow(_ notification:Notification){
+        // 아래 TextField에서 입력 시에, 키보드 높이만큼 view 의 offset을 move
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y = 0 - getKeyboardHeight(notification)
         }
-        return checkedFlag
     }
+    
+    func keyboardWillHide(_ notification:Notification){
+        // keyboard가 hide될 때, view 의 offset을 복귀
+        // 0으로 해도 결과는 같으나, 아래 TextField 입력 할때 오프셋을 변경했으니 조건 추가.
+        if bottomTextField.isFirstResponder{
+            view.frame.origin.y = 0
+        }
+    }
+    
+    func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+        //NSNotification에는 딕셔너리 형태의 userInfo 프로퍼티가 있습니다. userInfo 프로퍼티를 이용하여 키보드의 위치와 크기를 가져올 수 있습니다.
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        return keyboardSize.cgRectValue.height
+    }
+    
+    func subscribeToKeyboardNotifications() {
+        // 옵저버 등록
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications() {
+        // 옵저버 해제
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    
+    // MARK: general function
     
     func showNotice(alertCase : PickType){
         
@@ -204,3 +219,59 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 }
 
+extension ViewController : UITextFieldDelegate {
+    
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // 텍스트 필드에 입력을 시작하려 할 때.
+        print("textFieldShouldBeginEditing called")
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // 텍스트 필드에 입력을 시작.
+        print("textFieldDidBeginEditing called")
+        // TODO List : When a user taps inside a textfield, the default text should clear
+        // TODO List : Be sure to remove default text only, not user entered text.
+       
+        if let content = textField.text {
+            // TextField의 기본 text가 "TOP", "BOTTOM"일때 내용을 clear 해줍니다.
+            if content == DefaultTextOfTextField.top && textField.tag == TextFieldType.top.rawValue {
+                textField.text = ""
+            } else if content == DefaultTextOfTextField.bottom && textField.tag == TextFieldType.bottom.rawValue {
+                textField.text = ""
+            }
+        }
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        // 텍스트필드의 수정이 완료되려 할 때 호출
+        print("textFieldShouldEndEditing called.")
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // Editing is Done
+        // 텍스트 필드의 수정이 완료됐을 때 호출
+        print("textFieldDidEndEditing called")
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Enter was pressed
+        print("textFieldShouldReturn called.")
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 텍스트필드에 입력이 될 때마다 호출
+        print("textField called.")
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        // 텍스트필드의 clear button을 눌렀을 때
+        print("textFieldShouldClear")
+        return true
+    }
+}
