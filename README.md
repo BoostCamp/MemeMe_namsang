@@ -19,8 +19,8 @@
  * 최근 목록 테이블뷰에서 항목을 지워도 적용됩니다.
 
 4. 스크린샷
- * ![첫화면 - 테이블뷰](./images/meme1.png)
- * ![첫화면 - 콜렉션뷰](./images/meme2.png)
- * ![사진편집하기](./images/meme3.png)
- * ![공유하기](./images/meme4.png)
+ * ![첫화면 - 테이블뷰](./images/meme1.PNG)
+ * ![첫화면 - 콜렉션뷰](./images/meme2.PNG)
+ * ![사진편집하기](./images/meme3.PNG)
+ * ![공유하기](./images/meme4.PNG)
 
