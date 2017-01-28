@@ -145,7 +145,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FI-hR-kvd" id="wsg-bn-2PY">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SZx-NE-Mru">
@@ -318,11 +318,11 @@
             </objects>
             <point key="canvasLocation" x="839" y="-160"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="5Ud-eP-2rm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZXU-f0-GU8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="S6w-UO-SJz"/>
+                    <tabBarItem key="tabBarItem" title="" image="table_view_icon" selectedImage="table_view_icon" id="S6w-UO-SJz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7LD-A7-7DQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -337,11 +337,13 @@
             </objects>
             <point key="canvasLocation" x="-1289" y="-525"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="Y9Q-n9-Za2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="biN-Oe-WC6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="wkP-94-i8X"/>
+                    <tabBarItem key="tabBarItem" title="" image="collection_view_icon" selectedImage="collection_view_icon" id="wkP-94-i8X">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NHJ-Ut-zNf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -357,6 +359,10 @@
             <point key="canvasLocation" x="-1290" y="200"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="collection_view_icon" width="32" height="32"/>
+        <image name="table_view_icon" width="32" height="32"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UeS-uq-JcO"/>
     </inferredMetricsTieBreakers>
