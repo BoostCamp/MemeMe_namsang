@@ -259,6 +259,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="flowLayout" destination="O4l-2B-Kdf" id="Hct-qG-FB3"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oDF-jt-njd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -267,7 +270,7 @@
         <!--Detail-->
         <scene sceneID="0dY-8u-duV">
             <objects>
-                <viewController storyboardIdentifier="MemeDetailViewController" title="Detail" id="Whh-Wl-V6N" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeDetailViewController" title="Detail" hidesBottomBarWhenPushed="YES" id="Whh-Wl-V6N" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MQO-ES-ecn"/>
                         <viewControllerLayoutGuide type="bottom" id="f4s-E7-lQm"/>
@@ -276,7 +279,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XGf-qQ-5xc">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XGf-qQ-5xc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>

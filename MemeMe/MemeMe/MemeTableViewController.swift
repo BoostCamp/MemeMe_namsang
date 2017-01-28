@@ -12,7 +12,7 @@ class MemeTableViewController: UITableViewController {
     
     
     var memes: [Meme]!
-    
+    var memesCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +24,7 @@ class MemeTableViewController: UITableViewController {
         self.tableView.delegate = self
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        
     }
     
     
@@ -33,11 +34,16 @@ class MemeTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         print("viewWillAppear in MemeTableViewController")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        memes = appDelegate.memes
-        tableView?.reloadData()
+       
+        if (memesCount != appDelegate.memes.count){
+            memes = appDelegate.memes
+            memesCount = memes.count
+            tableView?.reloadData()
+        }
+        enableEditButton(memesItems: memesCount)
     }
     
-
+    
     
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear in MemeTableViewController")
@@ -75,10 +81,7 @@ class MemeTableViewController: UITableViewController {
     
         
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        memes = appDelegate.memes
-        return memes.count
+        return memesCount
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,7 +98,14 @@ class MemeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        // Grab the MemeDetailViewController from Storyboard
+        let memeDetailViewController = self.storyboard!.instantiateViewController(withIdentifier: WithIdentifierConstants.memeDetailViewController) as! MemeDetailViewController
+        
+        //Populate view controller with data from the selected item
+        memeDetailViewController.memedImage = memes[(indexPath as NSIndexPath).row].memedImage as UIImage
+        
+        // Present the view controller using navigation
+        navigationController?.pushViewController(memeDetailViewController, animated: true)
     }
     
     /*
@@ -109,27 +119,36 @@ class MemeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //Delete the row from the data  source
-            memes.remove(at: indexPath.row)
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.memes = memes
+            memes.remove(at: indexPath.row) //memes 오브젝트 배열에서 선택한 인덱스 삭제
+          
+            appDelegate.memes = memes // appDelegate의 shared model에서도 삭제
+            memesCount -= 1
+            enableEditButton(memesItems: memesCount)
+            //테이블 뷰에서 삭제
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
         }
     }
     
+    // MARK: general fucntions
     
+    
+    // Disable/Enable the edit button
+    func enableEditButton(memesItems count : Int){
+        // 삭제할 항목이 있을 때만 editButtonItem 활성화
+        editButtonItem.isEnabled = (count > 0) ? true : false
+        // 삭제할 항목이 없을 때 editing 종료
+        if count == 0{
+            setEditing(false, animated: true)
+        }
+    }
     
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EditorViewController" {
-            if let editiorViewController = segue.destination as? EditorViewController {
-//                editiorViewController.delegate = self
-            }
-        }
-    }
+    
     
             
 }

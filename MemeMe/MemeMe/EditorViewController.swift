@@ -112,6 +112,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         activityViewController.completionWithItemsHandler = {activityType, completed, returnedItems, activityError in
             if completed {
                 self.save(memedImage)
+                self.dismiss(animated: true, completion: nil)
 //                let appDelegate = UIApplication.shared.delegate as! AppDelegate
 //                let index: Int = appDelegate.memes.count
 //                self.delegate?.sendUpdateIndexpath(index: index)
@@ -315,8 +316,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
          let appDelegate = object as! AppDelegate
          appDelegate.memes.append(meme)
          */
-        dismiss(animated: true, completion: nil)
-        
     }
     
     // Disable/Enable the Share button

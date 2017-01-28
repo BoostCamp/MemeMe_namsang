@@ -20,6 +20,7 @@
 		3DA45A401E3B6FB600D86C7B /* MemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA45A3F1E3B6FB600D86C7B /* MemeCollectionViewController.swift */; };
 		3DA45A421E3B6FCB00D86C7B /* MemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA45A411E3B6FCB00D86C7B /* MemeTableViewController.swift */; };
 		3DB4CD261E3B15B800711734 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4CD251E3B15B800711734 /* Meme.swift */; };
+		3DC9073F1E3C7A1500D4F049 /* TappedStatusExtensionUITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9073E1E3C7A1500D4F049 /* TappedStatusExtensionUITapGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		3DA45A3F1E3B6FB600D86C7B /* MemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeCollectionViewController.swift; sourceTree = "<group>"; };
 		3DA45A411E3B6FCB00D86C7B /* MemeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewController.swift; sourceTree = "<group>"; };
 		3DB4CD251E3B15B800711734 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
+		3DC9073E1E3C7A1500D4F049 /* TappedStatusExtensionUITapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TappedStatusExtensionUITapGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				3D2085261E3BADFE000A3B70 /* MemeTableViewCell.swift */,
 				3D2085281E3BB468000A3B70 /* MemeCollectionViewCell.swift */,
 				3D20852A1E3BBCB9000A3B70 /* MemeDetailViewController.swift */,
+				3DC9073E1E3C7A1500D4F049 /* TappedStatusExtensionUITapGestureRecognizer.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D20852B1E3BBCB9000A3B70 /* MemeDetailViewController.swift in Sources */,
+				3DC9073F1E3C7A1500D4F049 /* TappedStatusExtensionUITapGestureRecognizer.swift in Sources */,
 				3D78F5231E39E98E00D02A63 /* EditorViewController.swift in Sources */,
 				3DB4CD261E3B15B800711734 /* Meme.swift in Sources */,
 				3D2085291E3BB468000A3B70 /* MemeCollectionViewCell.swift in Sources */,
