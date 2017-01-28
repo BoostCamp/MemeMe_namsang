@@ -15,7 +15,8 @@ class MemeCollectionViewController: UICollectionViewController {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     var memes: [Meme]!
-      
+    var memesCount = 0
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +42,12 @@ class MemeCollectionViewController: UICollectionViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         memes = appDelegate.memes
         collectionView?.reloadData()
+        if (memesCount != appDelegate.memes.count){
+            memes = appDelegate.memes
+            memesCount = memes.count
+            collectionView?.reloadData()
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,7 +76,7 @@ class MemeCollectionViewController: UICollectionViewController {
 */
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return memes.count
+        return memesCount
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

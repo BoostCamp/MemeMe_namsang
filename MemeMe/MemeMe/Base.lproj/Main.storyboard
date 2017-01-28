@@ -363,8 +363,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="collection_view_icon" width="32" height="32"/>
-        <image name="table_view_icon" width="32" height="32"/>
+        <image name="collection_view_icon" width="24" height="24"/>
+        <image name="table_view_icon" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UeS-uq-JcO"/>
