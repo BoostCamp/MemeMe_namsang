@@ -1,9 +1,9 @@
 # MemeMe
-Udacity "UIKit Fundamentals" 에서 제공하는 코드를 기반으로 만들었습니다.
+> Udacity "UIKit Fundamentals" 에서 제공하는 코드를 기반으로 만들었습니다.
 
 1. Meme 개요
 
-> Meme는 핸드폰으로 촬영한 이미지나 저장되어 있는 사진을 불러와 자신이 원하는 문구를 편집하여 저장할 수 있는 애플리케이션입니다. 또한, Meme를 통해 편집된 사진은 주변 지인들에게 공유하는 기능을 가지고 있습니다.
+ * Meme는 핸드폰으로 촬영한 이미지나 저장되어 있는 사진을 불러와 자신이 원하는 문구를 편집하여 저장할 수 있는 애플리케이션입니다. 또한, Meme를 통해 편집된 사진은 주변 지인들에게 공유하는 기능을 가지고 있습니다.
 
 2. Meme의 상세 기능
 
@@ -19,8 +19,8 @@ Udacity "UIKit Fundamentals" 에서 제공하는 코드를 기반으로 만들�
  * 최근 목록 테이블뷰에서 항목을 지워도 적용됩니다.
 
 4. 스크린샷
- * ![첫화면 - 테이블뷰](./iamges/meme1.png)
- * ![첫화면 - 콜렉션뷰](./iamges/meme2.png)
- * ![사진편집하기](./iamges/meme3.png)
- * ![공유하기](./iamges/meme4.png)
+ * ![첫화면 - 테이블뷰](./images/meme1.png)
+ * ![첫화면 - 콜렉션뷰](./images/meme2.png)
+ * ![사진편집하기](./images/meme3.png)
+ * ![공유하기](./images/meme4.png)
 
