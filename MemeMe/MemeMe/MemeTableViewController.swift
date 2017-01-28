@@ -92,6 +92,8 @@ class MemeTableViewController: UITableViewController {
         let meme = memes[(indexPath as NSIndexPath).row]
         
         cell.memedImageView?.image = meme.memedImage
+        //extension Date
+        cell.createdDateLabel?.text = meme.createDate.toString()
         cell.topLabel?.text = meme.topText
         cell.bottomLabel?.text = meme.bottomText
         

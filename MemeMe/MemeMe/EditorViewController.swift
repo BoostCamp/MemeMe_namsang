@@ -297,31 +297,40 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func save(_ memedImage: UIImage) {
+        
+        //현재 시간의 Date를 가져옵니다.
+        let now:Date = getCurrentDate()
+        
         // Update the meme
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage, createDate: now)
     
         // Add it to the memes array on the Application Delegate     
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.memes.append(meme)
-        
-//        if let object: UIApplicationDelegate = UIApplication.shared.delegate{
-//            if let appDelegate: AppDelegate = object{
-//                appDelegate.memes.append(meme)
-//            }
-//        }
-        
-        
-        /*
-         let object = UIApplication.shared.delegate
-         let appDelegate = object as! AppDelegate
-         appDelegate.memes.append(meme)
-         */
     }
     
     // Disable/Enable the Share button
     func enableShareActionButtonViaImagePickedCheck(_ imagePickedResult : Bool){
         shareActionBarButton.isEnabled = imagePickedResult
         print("enableShareActionButtonViaImagePickedCheck: ", imagePickedResult)
+    }
+    
+    
+    // 현재 시간을 DateComponents 형식으로 반환
+    func getCurrentDate() -> Date {
+        
+        var now:Date = Date()
+        var calendar = Calendar.current
+        let timezone = NSTimeZone.system
+        calendar.timeZone = timezone
+        //timezone을 사용해서 date의 components를 지정해서 가져옴.
+        let anchorComponets = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: now)
+
+        let getDateFromDateComponents = calendar.date(from: anchorComponets)
+        if let getCurrentDate = getDateFromDateComponents {
+            now = getCurrentDate
+        }
+        return now
     }
 }
 

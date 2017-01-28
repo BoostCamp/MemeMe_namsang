@@ -10,6 +10,7 @@ import UIKit
 
 class MemeTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var createdDateLabel: UILabel!
     @IBOutlet weak var memedImageView: UIImageView!
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
