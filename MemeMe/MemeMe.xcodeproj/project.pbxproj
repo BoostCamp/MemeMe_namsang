@@ -22,6 +22,10 @@
 		3DA45A421E3B6FCB00D86C7B /* MemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA45A411E3B6FCB00D86C7B /* MemeTableViewController.swift */; };
 		3DB4CD261E3B15B800711734 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4CD251E3B15B800711734 /* Meme.swift */; };
 		3DC9073F1E3C7A1500D4F049 /* TappedStatusExtensionUITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9073E1E3C7A1500D4F049 /* TappedStatusExtensionUITapGestureRecognizer.swift */; };
+		3DE36ACA1E3CB6970007639A /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE36AC91E3CB6970007639A /* Realm.framework */; };
+		3DE36ACB1E3CB6970007639A /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE36AC91E3CB6970007639A /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3DE36ACE1E3CB74D0007639A /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE36ACD1E3CB74D0007639A /* RealmSwift.framework */; };
+		3DE36ACF1E3CB74D0007639A /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE36ACD1E3CB74D0007639A /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +37,21 @@
 			remoteInfo = MemeMe;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3DE36ACC1E3CB6970007639A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3DE36ACF1E3CB74D0007639A /* RealmSwift.framework in Embed Frameworks */,
+				3DE36ACB1E3CB6970007639A /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3D2085261E3BADFE000A3B70 /* MemeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewCell.swift; sourceTree = "<group>"; };
@@ -54,6 +73,8 @@
 		3DA45A411E3B6FCB00D86C7B /* MemeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewController.swift; sourceTree = "<group>"; };
 		3DB4CD251E3B15B800711734 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		3DC9073E1E3C7A1500D4F049 /* TappedStatusExtensionUITapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TappedStatusExtensionUITapGestureRecognizer.swift; sourceTree = "<group>"; };
+		3DE36AC91E3CB6970007639A /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		3DE36ACD1E3CB74D0007639A /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE36ACE1E3CB74D0007639A /* RealmSwift.framework in Frameworks */,
+				3DE36ACA1E3CB6970007639A /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +100,8 @@
 		3D78F5141E39E98E00D02A63 = {
 			isa = PBXGroup;
 			children = (
+				3DE36ACD1E3CB74D0007639A /* RealmSwift.framework */,
+				3DE36AC91E3CB6970007639A /* Realm.framework */,
 				3D78F51F1E39E98E00D02A63 /* MemeMe */,
 				3D78F5341E39E98F00D02A63 /* MemeMeTests */,
 				3D78F51E1E39E98E00D02A63 /* Products */,
@@ -141,6 +166,7 @@
 				3D78F5191E39E98E00D02A63 /* Sources */,
 				3D78F51A1E39E98E00D02A63 /* Frameworks */,
 				3D78F51B1E39E98E00D02A63 /* Resources */,
+				3DE36ACC1E3CB6970007639A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -386,6 +412,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 887CC3EW57;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = MemeMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nam.MemeMe;
@@ -399,6 +429,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 887CC3EW57;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = MemeMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nam.MemeMe;

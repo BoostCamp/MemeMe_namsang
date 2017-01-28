@@ -9,18 +9,11 @@
 import UIKit
 import Photos
 import AVFoundation
-
-
-
-//protocol DataSentDelegate {
-//    func sendUpdateIndexpath(index: Int)
-//}
-
-
+import RealmSwift
+import Realm
 
 //UIImagePickerController를 사용하기 위해서는 UIImagePickerControllerDelegate, UINavigationControllerDelegate를 채택해야 함.
 class EditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     
     
     @IBOutlet weak var shareActionBarButton: UIBarButtonItem!
@@ -41,8 +34,13 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         case bottom
     }
     
-    
-//    var delegate: DataSentDelegate? = nil
+    struct ImageSaving {
+        var fiileName: String = ""
+        var documentDirectory: String = ""
+        var createdDate: Date = Date()
+    }
+    var imageSave:ImageSaving = ImageSaving()
+    var now:Date = Date()
 
     
     let memeTextAttributes:[String:Any] = [
@@ -113,9 +111,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
             if completed {
                 self.save(memedImage)
                 self.dismiss(animated: true, completion: nil)
-//                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//                let index: Int = appDelegate.memes.count
-//                self.delegate?.sendUpdateIndexpath(index: index)
             }
         }
         // present the ActivityViewController
@@ -129,9 +124,7 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func cancelEditingScreen(_ sender: Any) {
          self.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
+ 
     // MARK: PickerImage functions
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
@@ -210,6 +203,23 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         if let pickedImageFromImagePickerController = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = pickedImageFromImagePickerController
             imagePickedResult = true
+            
+            let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+            //file Path 추가하여 생성
+            let pickedImageFilePath = URL(fileURLWithPath: documentDirectoryPath)
+
+            now = getCurrentDate()
+            imageSave.createdDate = now
+            imageSave.fiileName = now.makeName()
+            
+            let pickedImageURL = pickedImageFilePath.appendingPathComponent(imageSave.fiileName)
+            
+            do {
+                try UIImagePNGRepresentation(pickedImageFromImagePickerController)?.write(to: pickedImageURL, options: Data.WritingOptions.atomic)
+            } catch {
+                print("Picked Image를 PNG파일로 저장 실패")
+            }
+            
         }else{
             print("Optional binding Error")
             imagePickedResult = false
@@ -257,7 +267,6 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
         
     }
     
-    
     // MARK: general function
     
     func showNotice(alertCase : PickType){
@@ -297,16 +306,31 @@ class EditorViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func save(_ memedImage: UIImage) {
+
+        let meme = Meme()
         
-        //현재 시간의 Date를 가져옵니다.
-        let now:Date = getCurrentDate()
+        meme.topText = topTextField.text!
+        meme.bottomText = bottomTextField.text!
+        meme.originalImage = imageSave.fiileName
+        meme.memedImage = "memed" + imageSave.fiileName
+        meme.createDate = imageSave.createdDate as NSDate
+
+        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        //file Path 추가하여 생성
+        let imageFilePath = URL(fileURLWithPath: documentDirectoryPath)
+        let memedImageURL = imageFilePath.appendingPathComponent(meme.memedImage)
         
-        // Update the meme
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage, createDate: now)
+        do {
+            try UIImagePNGRepresentation(memedImage)?.write(to: memedImageURL, options: Data.WritingOptions.atomic)
+        } catch {
+            print("memed Image를 PNG파일로 저장 실패")
+        }
+
+        let realm = try! Realm()
+        try! realm.write() {
+            realm.add(meme)
+        }
     
-        // Add it to the memes array on the Application Delegate     
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.memes.append(meme)
     }
     
     // Disable/Enable the Share button
